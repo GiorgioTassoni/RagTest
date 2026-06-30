@@ -47,7 +47,7 @@ Built with Python 3.13, PostgreSQL + [pgvector](https://github.com/pgvector/pgve
 ### 1. Clone and configure
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/GiorgioTassoni/RagTest.git
 cd RAG
 cp .env.example .env
 ```
