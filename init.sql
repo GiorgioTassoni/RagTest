@@ -1,0 +1,7 @@
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE IF NOT EXISTS rag_test (
+    id SERIAL PRIMARY KEY,
+    message TEXT NOT NULL,
+    embedding VECTOR(1024)
+);

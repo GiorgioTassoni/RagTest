@@ -1,0 +1,42 @@
+services:
+    postgres:
+        image: pgvector/pgvector:pg18
+        container_name: rag_postgres
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+        ports:
+            - "${POSTGRES_PORT}:5432"
+        volumes:
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+            - pgdata:/var/lib/postgresql
+        networks:
+            - rag_network
+
+    app:
+        build: .
+        container_name: rag_app
+        env_file:
+            - .env
+        volumes:
+            - .:/app
+        environment:
+            - DB_USER=${POSTGRES_USER}
+            - DB_PASSWORD=${POSTGRES_PASSWORD}
+            - DB_NAME=${POSTGRES_DB}
+            - DB_HOST=postgres
+            - LLAMA_SERVER_URL=${LLAMA_SERVER_URL}
+            - EMBEDDING_MODEL=${EMBEDDING_MODEL_NAME}
+            - CHAT_MODEL=${CHAT_MODEL_NAME}
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        networks:
+            - rag_network
+        command: tail -f /dev/null
+
+volumes:
+    pgdata:
+
+networks:
+    rag_network:

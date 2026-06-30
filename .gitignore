@@ -1,0 +1,24 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+
+# IDE
+.idea/
+
+# Chat data (personal)
+*.txt
+
+# Docker volumes
+pgdata/
+
+# Other files
+changed.txt
+.directory
